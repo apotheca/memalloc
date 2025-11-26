@@ -1,0 +1,107 @@
+cabal-version:   3.0
+name:            memalloc-io
+version:         0.0.1.0
+synopsis:        Memory allocation and management
+description:
+  Welcome to memalloc-io
+
+  Low-level memory abstractions for Haskell, restricted to IO.
+
+  For more information, see the [README on Github](https://github.com/apotheca/memalloc)
+
+author:          Leo D.
+maintainer:      leo@apotheca.io
+license:         BSD-3-Clause
+license-file:    LICENSE
+copyright:
+  Copyright (c) 2025, Leo D.
+
+build-type:      Simple
+category:        Memory
+extra-doc-files:
+  CHANGELOG.md
+  README.md
+
+-- tested-with:     GHC ==9.2 || ==9.4 || ==9.6 || ==9.8 || ==9.10 || ==9.12
+
+source-repository head
+  type:     git
+  location: https://github.com/apotheca/memalloc
+  subdir:   memalloc
+
+source-repository this
+  type:     git
+  location: https://github.com/apotheca/memalloc
+  subdir:   memalloc
+  tag:      memalloc-0.0.1.0
+
+flag use-mtl
+    description: Include MTL support
+    manual: True
+    default: True
+
+flag use-bytestring
+    description: Include ByteString support
+    manual: True
+    default: True
+
+common warnings
+  ghc-options:
+    -Wall -Wcompat -Wincomplete-uni-patterns
+    -Wincomplete-record-updates -Wpartial-fields -Widentities
+    -Wredundant-constraints -Wmissing-export-lists
+    -Wno-unticked-promoted-constructors -Wunused-packages
+    -Wmissing-deriving-strategies
+
+common language
+  default-language:   GHC2021
+  default-extensions:
+    DefaultSignatures
+    DerivingStrategies
+    DerivingVia
+    PatternSynonyms
+    RecordWildCards
+    RoleAnnotations
+    TypeFamilies
+
+library
+  import:             warnings, language
+  hs-source-dirs:     src/
+  default-extensions:
+    NoImplicitPrelude
+    OverloadedStrings
+
+  exposed-modules:
+    Control.Monad.IO.Allocator
+    Memory.IO.Address
+    Memory.IO.Allocator
+    Memory.IO.Allocator.Arena
+    Memory.IO.Allocator.Stack
+    -- Memory.IO.Allocator.Std
+    -- Memory.IO.Allocator.Pool
+    -- Memory.IO.Allocator.Slab
+    Memory.IO.Access.Castable
+    Memory.IO.Access.Handle
+    Memory.IO.Access.Pointer
+    Memory.IO.Access.Reference
+    Memory.IO.Access.Retainable
+    Memory.IO.Array
+    Memory.IO.Prelude
+
+  other-modules:      Paths_memalloc_io
+  autogen-modules:    Paths_memalloc_io
+  build-depends:
+    , base >=4.16 && <4.22
+
+  if flag(use-mtl)
+    exposed-modules:
+    build-depends:
+      , mtl
+    cpp-options: -DUSE_MTL
+
+  if flag(use-bytestring)
+    exposed-modules:
+    -- Memory.IO.Allocator.ByteString
+    build-depends:
+      , bytestring
+    cpp-options: -DUSE_BYTESTRING

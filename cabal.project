@@ -1,0 +1,8 @@
+-- index-state:
+
+packages:
+    -- The simplified, IO interface for now
+    memalloc-io
+
+-- tests: True
+-- benchmarks: True
