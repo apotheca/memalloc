@@ -1,7 +1,6 @@
 module Memory.IO.Allocator.Arena
 (
     ArenaAllocator(..)
-,   reset
 ) where
 
 import Memory.IO.Prelude
@@ -10,7 +9,7 @@ import Memory.IO.Allocator
 
 class (Allocator alr) => ArenaAllocator alr where
 
-    deallocateAll :: alr -> IO ()
-
-reset :: (ArenaAllocator alr) => alr -> IO ()
-reset = deallocateAll
+    -- | Deallocate all allocations at once
+    --
+    -- Alt names: deallocAll, reset, clear
+    deallocAll :: alr -> IO ()

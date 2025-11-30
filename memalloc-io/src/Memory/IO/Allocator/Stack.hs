@@ -13,3 +13,8 @@ class (Allocator alr) => StackAllocator alr where
 -- TODO: Once Allocator is finalized, push is trivial
 -- push :: (StackAllocator alr) => alr -> Layout alr -> IO (Allocation alr)
 -- push = ...
+
+-- TODO: Callstack / Frame allocator
+-- class (StackAllocator alr) => CallstackAllocator alr where
+--
+--     rewind :: alr -> (Frame alr -> IO a) -> IO a

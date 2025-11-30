@@ -75,17 +75,20 @@ library
     Control.Monad.IO.Allocator
     Memory.IO.Address
     Memory.IO.Allocator
+    Memory.IO.Allocator.Implicit
     Memory.IO.Allocator.Arena
     Memory.IO.Allocator.Stack
-    -- Memory.IO.Allocator.Std
+    Memory.IO.Allocator.Std
     -- Memory.IO.Allocator.Pool
     -- Memory.IO.Allocator.Slab
+    Memory.IO.Access.Array
     Memory.IO.Access.Castable
     Memory.IO.Access.Handle
     Memory.IO.Access.Pointer
     Memory.IO.Access.Reference
     Memory.IO.Access.Retainable
-    Memory.IO.Array
+    -- Memory.IO.Access.Weak
+    Memory.IO.Layout
     Memory.IO.Prelude
 
   other-modules:      Paths_memalloc_io
@@ -95,6 +98,7 @@ library
 
   if flag(use-mtl)
     exposed-modules:
+      Control.Monad.IO.Trans.Allocator
     build-depends:
       , mtl
     cpp-options: -DUSE_MTL

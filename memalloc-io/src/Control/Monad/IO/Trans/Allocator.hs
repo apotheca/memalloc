@@ -17,7 +17,7 @@ import Control.Monad.Reader
 newtype AllocatorT alr m a = MkAllocatorT
     { runAllocatorT :: ReaderT alr m a
     }
-    deriving (Functor, Applicative, Monad, MonadReader alr)
+    deriving newtype (Functor, Applicative, Monad, MonadReader alr)
 
 instance MonadTrans (AllocatorT alr) where
     lift = MkAllocatorT . lift
